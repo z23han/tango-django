@@ -17,3 +17,17 @@ python manage.py startapp app_name
 
 
 django-admin.py allows you to start new projects and apps, along with other commands. Within your project directory, manage.py allows you to perform administrative tasks within the scope of your project only. 
+
+We need to create apps by typing in: 
+python manage.py startapp app-name
+
+URL patterns use regular expressions to perform matching. 
+
+Workflows: 
+	.- create project: django-admin.exe startproject xxx
+	.- create application: python manage.py startapp xxx
+	.- INSTALLED_APPS
+	.- project urls.py
+	.- app urls.py
+	.- views.index: return a HttpResponse
+
