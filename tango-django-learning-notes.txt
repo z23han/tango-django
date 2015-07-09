@@ -14,7 +14,7 @@ python manage.py startapp app_name
 	3. python manage.py migrate
 
 
-
+===================================================================================================
 
 django-admin.py allows you to start new projects and apps, along with other commands. Within your project directory, manage.py allows you to perform administrative tasks within the scope of your project only. 
 
@@ -30,4 +30,33 @@ Workflows:
 	.- project urls.py
 	.- app urls.py
 	.- views.index: return a HttpResponse
+
+When joning or concatenating system paths together, using os.path.join() is preferred approach. It would ensure that the correct slashes are used depending on the operating system. 
+
+# get the absolute path of the file. 
+print __file__
+print os.path.dirname(__file__)
+print os.path.dirname(os.path.dirname(__file__))
+
+STATIC_URL defines the URL to access media via the web server. 
+STATICFILES_DIRS allows one to specify the location of the newly created static directory on the local disk, which requires an absolute path to the static directory. 
+
+{% static %} function call should be used whenever one wishes to reference static media within a template. We can thus include Javascript, CSS and images into the template. 
+
+Workflows: 
+	.- 	create templates folder and specify in the settings.py. And we might use {{ variable_name }} within the template. 
+	.- create a new view within the views.py
+	.- add logic in the view
+	.- dictionary is usually used to pass template's context. 
+	.- Use render() helper function to generate response. 
+	.- URL mappings in the project's and application's url.py
+
+media files setup: 
+	.- place the media files in the project's static folder. 
+	.- The upper directory path is specified in the project's STATICFILES_DIRS tuple within settings.py
+	.- Add reference to the static media into the template. 
+	.- use {% load staticfiles %} and {% static "filename" %} within the template to access the static files. 
+
+OK, this chapter dives into details on the URL compatiblity with media and static files to be uploaded. 
+Setting correct URL in the settings.py with os.path.join(BASE_URL, 'xxx') and putting it into the urlpatterns in the urls.py is very critical. 
 
