@@ -1,0 +1,19 @@
+pip freeze
+.\Script\activate
+python manage.py runserver
+python manage.py migrate
+python manage.py startapp polls
+python manage.py sqlmigrate polls 0001
+python manage.py makemigrations
+python manage.py shell
+python manage.py startapp app_name
+
+3 steps to make model changes: 
+	1. Change models (in models.py)
+	2. python manage.py makemigrations
+	3. python manage.py migrate
+
+
+
+
+django-admin.py allows you to start new projects and apps, along with other commands. Within your project directory, manage.py allows you to perform administrative tasks within the scope of your project only. 
