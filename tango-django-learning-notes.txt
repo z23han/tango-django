@@ -60,3 +60,19 @@ media files setup:
 OK, this chapter dives into details on the URL compatiblity with media and static files to be uploaded. 
 Setting correct URL in the settings.py with os.path.join(BASE_URL, 'xxx') and putting it into the urlpatterns in the urls.py is very critical. 
 
+============================================================================
+CharField a field for storing character data (e.g. string), specify max_length to provide the max number of characters the field can store. 
+
+URLField like CharField, but for resource URL. 
+IntegerField
+DateField. 
+
+When importing Django models, make sure to import the project's settings by importing django and setting the environment variable DJANGO_SETTINGS_MODULE to the project setting file. Then we can call django.setup() to import the django settings. 
+
+Workflow: 
+	.- configure DATABASE and tell what database to use in settings.py
+	.- create models in models.py
+	.- Update admin.py to include and register new models. 
+	.- python manage.py makemigrations
+	.- python manage.py migrate. 
+	
