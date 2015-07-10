@@ -75,4 +75,17 @@ Workflow:
 	.- Update admin.py to include and register new models. 
 	.- python manage.py makemigrations
 	.- python manage.py migrate. 
-	
+
+================================================================
+
+index() inside the views.py is responsible for the main page view. 
+
+The slugify part is intended to add another field called slug, and it is saved as it is. 
+Slug function is something that connect separate words with a small line. 
+
+Workflow: 
+	.- import Page Model into views.py
+	.- Create a new view in views.py, category_name_url will store the encoded category name. 
+	.- create a new template called category.html
+	.- update urlpatterns to map category view to a URL pattern. 
+

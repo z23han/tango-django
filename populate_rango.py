@@ -5,6 +5,7 @@ import django
 django.setup()
 
 from rango.models import Category, Page
+import random
 
 def populate():
 	python_cat = add_cat('Python', 128, 64)
@@ -50,6 +51,9 @@ def populate():
 		for p in Page.objects.filter(category=c):
 			print '- {0} - {1}'.format(str(c), str(p))
 
+	set_page_views()
+	count_page_views()
+
 
 def add_page(cat, title, url, views=0):
 	p = Page.objects.get_or_create(category=cat, title=title)[0]
@@ -64,6 +68,21 @@ def add_cat(name, views=0, likes=0):
 	c.likes = likes
 	c.save()
 	return c
+
+
+def set_page_views():
+	for p in Page.objects.all():
+		p.views = random.randint(1, 100)
+		p.save()
+	return
+
+# return the top
+def count_page_views():
+	print "List Top 5 viewed Pages"
+	page_list = Page.objects.order_by('-views')[:5]
+	for p in page_list:
+		print p.title, str(p.views)
+	return
 
 
 # Start execution here !
