@@ -89,3 +89,21 @@ Workflow:
 	.- create a new template called category.html
 	.- update urlpatterns to map category view to a URL pattern. 
 
+=======================================================================
+
+This chapter is focused on the forms. 
+Basic Flow: 
+	.- create forms.py in rango
+	.- create ModelForm class representing a form
+	.- create/update view to handle form, including displaying, saving, and flagging up errors. 
+	.- create/update a template to display the form
+	.- add urlpattern to map the new view. 
+
+Django provides lots of widget fields for use. We would have CharField, IntegerField, EmailField, ChoiceField, DateField, etc. 
+
+So this is another explanation about GET and POST from tango-django app
+.-:::: GET: used to retrieve resource, like webpage, image or other files. 
+.-:::: POST: submits data from client's web browser to be processed, say submitting contents of a HTML form. 
+.-:::: Ultimately, POST ends up mostly being programmed to create a new resource (database entry, say) on the server. This can be later accessed via HTTP GET. 
+
+
