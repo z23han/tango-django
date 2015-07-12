@@ -107,3 +107,33 @@ So this is another explanation about GET and POST from tango-django app
 .-:::: Ultimately, POST ends up mostly being programmed to create a new resource (database entry, say) on the server. This can be later accessed via HTTP GET. 
 
 
+=====================================================================
+
+User model comes with 5 primary attributes, they are
+	.- username 
+	.- account's password
+	.- user's email
+	.- user's firstname
+	.- user's surname
+It also comes with 
+	.- is_active
+
+To provide the user registration functionalities, we need: 
+	.- Create a UserForm and UserProfileForm
+	.- Add view to handle the creation of new user. 
+	.- Create a template of UserForm and UserProfileForm
+	.- Map URL to view 
+	.- Link index to the registration page. 
+
+For the Login functionality, we need the workflows as follows: 
+	.- create a login view to handle user credential
+	.- create a login template to display login form
+	.- map login view to url
+	.- provide link from index page. 
+
+Django uses authenticate() function to check whether the username and password provided match to a valid user account, and the login() function to signify to Django that the user is logged in. 
+
+HttpResponseRedirect class tells the client browser to redirect to the URL I provided as the argument. 
+
+This chapter is basically focused on making registration and login page. In order to facilitate this chapter's implementation, we need to create a class in the model called UserProfile. Then in the views.py page, we add logic of register() to justify if the user has successfully registered; and a login() to grab the data from POST and send back to loggin. Also we have to create several template dealing with the login page and register page, and the data would be transferred to the views.py register() and login() to be obtained and those functions would be furthermore transferring the data to the index page, but with data having be obtained. 
+

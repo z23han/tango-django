@@ -1,9 +1,12 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from rango.models import Category, Page
-from rango.forms import CategoryForm, PageForm
+from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
 	# Construct a dictionary to pass to the template engine as its context
@@ -91,3 +94,76 @@ def add_page(request, category_name_slug):
 
 	context_dict = {'form': form, 'category': cat}
 	return render(request, '/rango/add_page.html', context_dict)
+
+
+def register(request):
+	# boolean for telling the template whether registration is successful
+	register = False
+
+	if request.method == 'POST':
+		user_form = UserForm(data=request.POST)
+		profile_form = UserProfileForm(data=request.POST)
+
+		if user_form.is_valid() and profile_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save()
+
+			profile = profile_form.save(commit=False)
+			profile.user = user
+
+			if 'picture' in request.FILES:
+				profile.picture = request.FILES['picture']
+
+			profile.save()
+			register = True
+
+		else:
+			print user_form.errors, profile_form.errors
+	else:
+		user_form = UserForm()
+		profile_form = UserProfileForm()
+
+	return render(request, 'rango/register.html', 
+		{'user_form': user_form, 'profile_form': profile_form, 'register': register})
+
+
+def user_login(request):
+
+	# test if it is a HTTP POST
+	if request.method == 'POST':
+		# gather user information and password provided
+		# request.POST[var] might raise exception
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+
+		user = authenticate(username=username, password=password)
+
+		# if we have a user object, the details are correct
+		if user:
+			# is account active? It could have been disabled. 
+			if user.is_active:
+				# if account is valid and active
+				login(request, user)
+				return HttpResponseRedirect('/rango/')
+			else:
+				return HttpResponse("Your rango account is disabled.")
+		else:
+			# bad login details
+			print "Invalid login details: {0}, {1}".format(username, password)
+			return HttpResponse("Invalid login details supplied.")
+	# if the request is not a HTTP post
+	else:
+		return render(request, 'rango/login.html', {})
+
+@login_required
+def restricted(request):
+	return HttpResponse("Since you're logged in, you can see this text!")
+
+
+# login_required() decorator to ensure onlu those logged in can access view
+@login_required
+def user_logout(request):
+	# since we know the user is logged in, we can just log out
+	logout(request)
+	return HttpResponseRedirect('/rango/')

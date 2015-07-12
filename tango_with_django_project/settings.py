@@ -40,6 +40,11 @@ INSTALLED_APPS = (
     'rango', 
 )
 
+PASSWORD_HASHES = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher', 
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher', 
+)
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,6 +93,7 @@ WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # absolute path to the media directory
 
+LOGIN_URL = '/rango/login/'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
