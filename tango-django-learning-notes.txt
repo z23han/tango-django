@@ -137,3 +137,11 @@ HttpResponseRedirect class tells the client browser to redirect to the URL I pro
 
 This chapter is basically focused on making registration and login page. In order to facilitate this chapter's implementation, we need to create a class in the model called UserProfile. Then in the views.py page, we add logic of register() to justify if the user has successfully registered; and a login() to grab the data from POST and send back to loggin. Also we have to create several template dealing with the login page and register page, and the data would be transferred to the views.py register() and login() to be obtained and those functions would be furthermore transferring the data to the index page, but with data having be obtained. 
 
+=====================================================================
+
+this chapter is about make a template of all the template html pages. 
+
+It's a pretty neat way and everything gets set up so nicely. 
+
+In the views.py page, we need to make sure that all the context for each request is made available to a Django template engine. We throughout this course use render() to achieve this goal, passing the request as a parameter. !!!!
+
