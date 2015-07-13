@@ -33,11 +33,13 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango', 
+    'registration', 
 )
 
 PASSWORD_HASHES = (
@@ -124,3 +126,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# For the registration files
+REGISTRATION_OPEN = True             # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # 1-week activation window
+REGISTRATION_AUTO_LOGIN = True  # If True, user will be automatically logged in
+LOGIN_REDIRECT_URL = '/rango/'  # The page you want users to arrive at after succesful login
+LOGIN_URL = '/accounts/login/'   # The page users are directed to if they are not logged in
+
+SITE_ID = 1

@@ -22,6 +22,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rango/', include('rango.urls')), 
+    url(r'^accounts/', include('registration.backends.simple.urls')), 
 ]
 
 # this is for the urlpatterns with respect to media folder information. 
