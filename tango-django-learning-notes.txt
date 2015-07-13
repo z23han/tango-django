@@ -145,3 +145,30 @@ It's a pretty neat way and everything gets set up so nicely.
 
 In the views.py page, we need to make sure that all the context for each request is made available to a Django template engine. We throughout this course use render() to achieve this goal, passing the request as a parameter. !!!!
 
+=====================================================================
+
+When a request to a website is made, the server sends cookies to the browser as well, and it is stored in the browser cache. When the user request new page from the server, the cookies that match to that server are sent with the request. The server then interpret the cookies as part of the request's context and generate response. 
+
+HTTP protocol: A client computer running a web browser must establish a new network connection (TCP connection) to the server each time a resource is requested GET or POST. 
+
+semi-permanent exchange of information. 
+session ID stored as a cookie on a client computer, instead of username, passwords ... Session ID can be considered as a token (sequence of characters) to identify a unique session within a web application. 
+
+The session ID can be mapped to a data structure on the web server. And within that data structure, we can store all of the information I require. 
+
+If the browser supports cookies, much all websites create a new session for us to visit. 
+
+Things to consider about for session 
+	.- store session for persistence over a series of browsers or disregarded 
+	.- Storing cookies means storing them on client's computer. 
+	.- clients can set the securities setting for cookies blocking. 
+
+For client-side cookies checking
+	.- request.COOKIES.has_key('cookie_name')
+	.- request.COOKIES['xxx']
+	.- response.set_cookie('cookie_name', value)
+
+More secured cookies: MIDDLEWARE_CLASSES in settings
+check: requests.sessions.get()
+update or set cookie: requests.session['cookie_name']
+
