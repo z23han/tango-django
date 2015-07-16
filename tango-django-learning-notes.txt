@@ -172,3 +172,11 @@ More secured cookies: MIDDLEWARE_CLASSES in settings
 check: requests.sessions.get()
 update or set cookie: requests.session['cookie_name']
 
+===============================================================
+
+we wanna show different categories in the sidebar
+	.- in the base.html, add code to display an item list of categories. 
+	.- In each view, we could access the Category object, to get all the categories, and return the context dictionary. 
+
+Azure API key: ApuwFvz3HUc9geDI5E5koYH4A1ntm6XKl/YkWAgPwds
+
