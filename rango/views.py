@@ -313,3 +313,4 @@ def suggest_category(request):
 	cat_list = get_category_list(8, starts_with)
 
 	return render(request, 'rango/category_list.html', {'cat_list': cat_list})
+
