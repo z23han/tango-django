@@ -6,11 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
+	{% load staticfiles %}
 	<link rel="ico" type="text/css" href="http://getbootstrap.com/favicon.ico">
 
 	<title>Rango - {% block title %}How to Tango with Rango!{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/examples/dashboard/dashboard.css">
+	<script type="text/javascript" src="{% static "js/jquery-1.11.3.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/rango-jquery.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/rango-ajax.js" %}"></script>
 </head>
 <body>
 
@@ -51,6 +55,16 @@
 			</div>
 		</div>
 	</div>
+
+	<ul class="nav nav-list">
+		<li class="nav-header">Find a Category</li>
+		<form>
+			<label></label>
+			<li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
+		</form>
+	</ul>
+
+	<div id="cats"></div>
 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>

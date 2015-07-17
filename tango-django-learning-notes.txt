@@ -180,3 +180,23 @@ we wanna show different categories in the sidebar
 
 Azure API key: ApuwFvz3HUc9geDI5E5koYH4A1ntm6XKl/YkWAgPwds
 
+
+================================================================
+
+Things we want to do 
+
+1. track page click throughs: we want to track the number of times each page is clicked and viewed. And we want to count the number of times. 
+	.- create a view track_url(), and map it to /rango/goto with 'name=goto'
+	.- track_url() examine HTTP GET and pulls out page_id
+	.- Update category.html so it uses /rango/goto/?page_id=XXX with templatetag
+
+2. Search within Category Page: The user first browses the category of interest; if they cannot find the page they want, they can then search for it, if the page is suitable, they would add it to the category they are in. 
+	.- remove Search link menu bar
+	.- Update search form <form class="form-inline" id="user_form" method="post" action="{% url 'category' category.slug %}">
+	.- Update the view to handle HTTP POST request. 
+	.- Include {% if user.authenticated %} to the category.html template
+
+
+================================================================
+
+When it comes to CSS, JAVASCRIPT, and HTML, we gotta keep them separated! 

@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from rango.bing_search import run_query
+from django.shortcuts import redirect
 
 
 def index(request):	
@@ -94,6 +95,15 @@ def about(request):
 def category(request, category_name_slug):
 	# context dictionary to pass to the template rendering engine
 	context_dict = {}
+	context_dict['result_list'] = None
+	context_dict['query'] = None
+	if request.method == 'POST':
+		query = request.POST['query'].strip()
+		if query:
+			# Run the Bing function to get the result list
+			result_list = run_query(query)
+			context_dict['result_list'] = result_list
+			context_dict['query'] = query
 
 	try:
 		# if we cannot find the slug-name, get() raises DoesNotExist exception
@@ -101,7 +111,7 @@ def category(request, category_name_slug):
 		context_dict['category_name'] = category.name
 
 		# retrieve all the pages
-		pages = Page.objects.filter(category=category)
+		pages = Page.objects.filter(category=category).order_by('-views')
 		# Adds results list to the template context 
 		context_dict['pages'] = pages
 		# also add category object from db to the context 
@@ -248,3 +258,58 @@ def search(request):
 			result_list = run_query(query)
 
 	return render(request, 'rango/search.html', {'result_list': result_list})
+
+
+def track_url(request):
+	page_id = None
+	url = '/rango/'
+	if request.method == 'GET':
+		if 'page_id' in request.GET:
+			page_id = request.GET['page_id']
+			try:
+				page = Page.objects.get(id=page_id)
+				page.views = page.views + 1
+				page.save()
+				url = page.url
+			except:
+				pass
+
+	return redirect(url)
+
+
+@login_required
+def like_category(request):
+
+	cat_id = None
+	if request.method == 'GET':
+		cat_id = request.GET['category_id']
+
+	likes = 0
+	if cat_id:
+		cat = Category.objects.get(id=int(cat_id))
+		cat.likes = likes
+		cat.save()
+	return HttpResponse(likes)
+
+# helper function to get the cat_list with starts_with and max_results limits
+def get_category_list(max_results=0, starts_with=''):
+	cat_list = []
+	if starts_with:
+		cat_list = Category.objects.filter(name__istartswith=starts_with)
+
+	if max_results > 0:
+		if len(cat_list) > max_results:
+			cat_list = cat_list[:max_results]
+
+	return cat_list
+
+
+def suggest_category(request):
+	cat_list = []
+	starts_with = ''
+	if request.method == 'GET':
+		starts_with = request.GET['suggestion']
+
+	cat_list = get_category_list(8, starts_with)
+
+	return render(request, 'rango/category_list.html', {'cat_list': cat_list})
